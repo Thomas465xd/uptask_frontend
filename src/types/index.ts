@@ -8,6 +8,15 @@ export const projectSchema = z.object({
     clientName: z.string(),
 })
 
+export const dashboardProjectSchema = z.array(
+    projectSchema.pick({
+        _id: true,
+        projectName: true,
+        projectDescription: true,
+        clientName: true
+    })
+)
+
 /** Tasks */
 export const taskSchema = z.object({
     _id: z.string(),
