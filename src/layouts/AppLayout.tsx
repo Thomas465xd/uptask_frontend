@@ -1,4 +1,6 @@
 import { Outlet } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import Logo from '@/components/Logo'
 import { NavMenu } from '@/components/NavMenu'
 
@@ -28,6 +30,13 @@ export default function AppLayout() {
                     <span className="font-bold">UpTask</span> &copy; All rights reserved {new Date().getFullYear()}
                 </p>
             </footer>
+
+            <ToastContainer
+                position="top-right"
+                autoClose={4000}
+                pauseOnFocusLoss={false}
+                pauseOnHover={false}
+            />
         </>
     )
 }
