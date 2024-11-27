@@ -5,11 +5,17 @@ UpTask is a powerful project and task management web app built using the MERN st
 ## Features
 
 - **User Accounts & Authentication**: Users can sign up, log in, and manage their accounts with features like JWT authentication and a "Forgot Password" functionality.
+
 - **Project Management**: Users can create and manage projects, assign roles and tasks to different members of the project team.
+
 - **Task Delegation**: Project managers can delegate tasks to team members, track their progress, and ensure the successful completion of each task.
+
 - **Team Collaboration**: Assign specific roles to each user and assign tasks based on their roles within the project.
+
 - **Progress Tracking**: Track overall project progress by monitoring completed and pending tasks.
+
 - **Headless UI Components**: A user-friendly interface with Headless UI components for a seamless, accessible experience.
+
 - **RESTful API**: Connects to a backend RESTful API to manage projects, tasks, and user-related operations.
 
 ## Technologies Used
@@ -99,4 +105,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Made with ♥️ Thomas Schrödinger
+**Made with ♥️ Thomas Schrödinger**
