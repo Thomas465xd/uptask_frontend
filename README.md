@@ -1,50 +1,108 @@
-# React + TypeScript + Vite
+# UpTask - To-Do List Web App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+UpTask is a powerful project and task management web app built using the MERN stack (MongoDB, Express, React, Node.js). It allows users to create accounts, manage projects, assign tasks to team members, and track progress all in one place. The app features robust user authentication with JWT, a task delegation system for project managers, and more.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **User Accounts & Authentication**: Users can sign up, log in, and manage their accounts with features like JWT authentication and a "Forgot Password" functionality.
 
-## Expanding the ESLint configuration
+- **Project Management**: Users can create and manage projects, assign roles and tasks to different members of the project team.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Task Delegation**: Project managers can delegate tasks to team members, track their progress, and ensure the successful completion of each task.
 
-- Configure the top-level `parserOptions` property like this:
+- **Team Collaboration**: Assign specific roles to each user and assign tasks based on their roles within the project.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+- **Progress Tracking**: Track overall project progress by monitoring completed and pending tasks.
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+- **Headless UI Components**: A user-friendly interface with Headless UI components for a seamless, accessible experience.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+- **RESTful API**: Connects to a backend RESTful API to manage projects, tasks, and user-related operations.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## Technologies Used
+
+- **Frontend**:
+  - React
+  - React Router
+  - Headless UI
+  - Axios
+  - JWT Authentication
+- **Backend** (for reference):
+  - Node.js
+  - Express
+  - MongoDB (MERN stack)
+  - JWT for Authentication
+- **UI Framework**: TailwindCSS (with Headless UI components for accessibility)
+
+## Installation
+
+### Frontend Setup
+
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/yourusername/uptask-frontend.git
+    cd uptask-frontend
+    ```
+
+2. Install dependencies:
+    ```bash
+    npm install
+    ```
+
+3. Create a `.env` file in the root of the project and add the following:
+    ```
+    REACT_APP_API_URL=<YOUR_API_URL>
+    ```
+
+4. Run the app:
+    ```bash
+    npm start
+    ```
+
+### Backend Setup
+
+1. Clone the backend repository (if not already set up):
+    ```bash
+    git clone https://github.com/Thomas465xd/uptask_backend.git
+    cd uptask-backend
+    ```
+
+2. Install backend dependencies:
+    ```bash
+    npm install
+    ```
+
+3. Set up the MongoDB database connection and other environment variables in `.env`.
+
+4. Start the backend server:
+    ```bash
+    npm start
+    ```
+
+## Usage
+
+1. **Sign Up**: Create a new user account by entering an email and password.
+2. **Login**: Use your credentials to log in and access your account.
+3. **Create Projects**: Project managers can create new projects and assign tasks.
+4. **Assign Roles & Tasks**: Project managers can assign roles to team members and delegate tasks to them.
+5. **Track Progress**: Monitor the overall progress of the project by checking task completion.
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature-name`)
+3. Commit your changes (`git commit -am 'Add new feature'`)
+4. Push to the branch (`git push origin feature-name`)
+5. Open a pull request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- Headless UI for accessible components
+- The MERN stack for full-stack web development
+
+---
+
+**Made with ♥️ Thomas Schrödinger**
