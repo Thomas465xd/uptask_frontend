@@ -1,4 +1,4 @@
-import { dashboardProjectSchema, ProjectFormData } from "@/types/index";
+import { dashboardProjectSchema, Project, ProjectFormData } from "@/types/index";
 import api from "@/lib/axios";
 import { isAxiosError } from "axios";
 
@@ -9,6 +9,7 @@ import { isAxiosError } from "axios";
  * @throws Error con un mensaje proveniente de la API o un mensaje genérico.
  */
 
+// get all projects
 export async function getProjects() {
     try {
         const { data } = await api.get("/projects");
@@ -24,6 +25,19 @@ export async function getProjects() {
     }
 }
 
+// get project by id
+export async function getProjectById(id : Project["_id"]) {
+    try {
+        const { data } = await api.get(`/projects/${id}`);
+        return data
+    } catch (error) {
+        if (isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.message);
+        }
+    }
+}
+
+// create project
 export async function createProject(formData: ProjectFormData): Promise<any> {
     try {
         const { data } = await api.post("/projects", formData);
@@ -35,4 +49,33 @@ export async function createProject(formData: ProjectFormData): Promise<any> {
     }
 }
 
+type ProjectAPIType = {
+    formData: ProjectFormData,
+    projectId: Project["_id"]
+}
+
+// update project
+
+export async function updateProject({formData, projectId} : ProjectAPIType) {
+    try {
+        const { data } = await api.put(`/projects/${projectId}`, formData);
+        return data
+    } catch (error) {
+        if (isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.message);
+        }
+    }
+}
+
+// delete project
+export async function deleteProject(id : Project["_id"]) {
+    try {
+        const { data } = await api.delete(`/projects/${id}`);
+        return data
+    } catch (error) {
+        if (isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.message);
+        }
+    }
+}
 

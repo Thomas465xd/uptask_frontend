@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import { getProjects } from "@/api/ProjectAPI";
+import { useMutation, useQuery, useQueryClient  } from "@tanstack/react-query";
+import { deleteProject, getProjects } from "@/api/ProjectAPI";
 import { projectSchema } from "../types";
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid'
+import { toast } from "react-toastify";
 
 export default function DashboardView() {
 
@@ -12,6 +13,21 @@ export default function DashboardView() {
         queryKey: ["projects"],
         queryFn: getProjects,
     });
+
+    const queryClient = useQueryClient();
+
+    const { mutate } = useMutation({
+        mutationFn: deleteProject,
+        onError: (error) => {
+            toast.error(error.message)
+        }, 
+        onSuccess: (data) => {
+            // "deletes" the project from the cache
+            queryClient.invalidateQueries({queryKey: ["projects"]});
+
+            toast.success(data.message)
+        }
+    })
 
     if(isLoading) {
 
@@ -78,7 +94,7 @@ export default function DashboardView() {
                                                     <button 
                                                         type='button' 
                                                         className='block px-3 py-1 text-sm leading-6 text-red-500'
-                                                        onClick={() => {} }
+                                                        onClick={() => mutate(project._id) }
                                                     >
                                                         Delete Project
                                                     </button>

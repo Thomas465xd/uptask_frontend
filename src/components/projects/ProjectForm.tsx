@@ -18,7 +18,7 @@ export default function ProjectForm({errors, register} : ProjectFormProps) {
                     id="projectName"
                     className="w-full p-3  border border-gray-200"
                     type="text"
-                    placeholder="Nombre del Proyecto"
+                    placeholder="Name of the Project"
                     {...register("projectName", {
                         required: "The Name of the project is requiered",
                     })}
@@ -36,7 +36,7 @@ export default function ProjectForm({errors, register} : ProjectFormProps) {
                 <textarea
                     id="projectDescription"
                     className="w-full p-3  border border-gray-200"
-                    placeholder="Descripción del Proyecto"
+                    placeholder="Description of the Project"
                     {...register("projectDescription", {
                         required: "A description for the project is required"
                     })}
