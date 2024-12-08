@@ -14,7 +14,7 @@ export default function TaskForm({errors, register} : TaskFormProps) {
                 <label
                     className="font-normal text-2xl"
                     htmlFor="taskName"
-                >Name of the Task</label>
+                >Task Name</label>
                 <input
                     id="name"
                     type="text"

@@ -18,7 +18,7 @@ export const dashboardProjectSchema = z.array(
 )
 
 /** Tasks */
-export const taskStatusSchema = z.enum(["PENDING", "COMPLETED", "IN_PROGRESS", "CANCELLED"])
+export const taskStatusSchema = z.enum(["PENDING", "ON_HOLD", "IN_PROGRESS", "UNDER_REVIEW", "COMPLETED"]);
 
 export const taskSchema = z.object({
     _id: z.string(),

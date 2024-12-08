@@ -1,29 +1,60 @@
 import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import TaskForm from './TaskForm';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { TaskFormData } from '@/types/index';
 import { useForm } from 'react-hook-form';
+import { createTask } from '@/api/TaskAPI';
+import { toast } from 'react-toastify';
 
 export default function AddTaskModal() {
 
     const navigate = useNavigate()
 
+    // Read if modal exists
     const location = useLocation()
     const queryParams = new URLSearchParams(location.search)
 
     const modalTask = queryParams.get('newTask')
     const show = modalTask ? true : false
 
+    // Obtain projectId
+    const params = useParams()
+    const projectId = params.projectId!
+
     const initialValues : TaskFormData = {
         taskName: "",
         taskDescription: "",
     }
 
-    const { register, handleSubmit, formState: {errors} } = useForm({defaultValues: initialValues});
+    const { register, handleSubmit, reset, formState: {errors} } = useForm({defaultValues: initialValues});
+
+    const queryClient = useQueryClient();
+
+    const { mutate } = useMutation({
+        mutationFn: createTask,
+        onError: (error) => {
+            const errorMessage = error.message || "An error occurred";
+            toast.error(errorMessage);
+        },
+        onSuccess: (data) => {
+            // "deletes" the project from the cache
+            queryClient.invalidateQueries({queryKey: ["editProject", projectId]});
+
+            toast.success(data.message);
+            reset();
+            
+            //navigate("/")
+        }
+    })
 
     const handleCreateTask = handleSubmit((formData : TaskFormData) => {
-
+        const data = {
+            formData, 
+            projectId
+        }
+        mutate(data);
     })
 
     return (
@@ -74,7 +105,7 @@ export default function AddTaskModal() {
 
                                         <input 
                                             type="submit"
-                                            className="bg-fuchsia-600 hover:bg-fuchsia-700 w-full px-10 py-3 text-white rounded-lg font-bold mt-10 inline-block transition-colors"
+                                            className="bg-fuchsia-600 hover:bg-fuchsia-700 w-full px-10 py-3 rounded text-white font-bold mt-10 inline-block transition-colors"
                                             value={"Add Task"}
                                         />
                                     </form>
