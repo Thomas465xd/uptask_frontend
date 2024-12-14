@@ -45,5 +45,6 @@ export const taskSchemaV2 = z.object({
 export type Project = z.infer<typeof projectSchema>;
 export type ProjectFormData = Pick<Project, "projectName" | "projectDescription" | "clientName">;
 export type Task = z.infer<typeof taskSchema>;
+export type TaskV2 = z.infer<typeof taskSchemaV2>;
 export type TaskFormData = Pick<Task, "taskName" | "taskDescription">;
 export type TaskStatus = z.infer<typeof taskStatusSchema>;

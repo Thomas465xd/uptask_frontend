@@ -49,7 +49,6 @@ export default function TaskModalDetails() {
         const status = e.target.value as TaskStatus
         const data = { projectId, taskId, status };
 
-        console.log(data)
         mutate(data);
     }
 

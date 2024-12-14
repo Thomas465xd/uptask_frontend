@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Task, TaskFormData } from '@/types/index';
+import { Task, TaskFormData, TaskV2 } from '@/types/index';
 import { useForm } from 'react-hook-form';
 import TaskForm from './TaskForm';
 import { useQueryClient, useMutation } from '@tanstack/react-query';
@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import { updateTask } from '@/api/TaskAPI';
 
 type EditTaskModalProps = {
-    data: Task
+    data: TaskV2
     taskId: Task["_id"]
 }
 
@@ -37,7 +37,6 @@ export default function EditTaskModal({data, taskId} : EditTaskModalProps) {
         onSuccess: (data) => {
             queryClient.invalidateQueries({queryKey: ["editProject", projectId]});
             queryClient.invalidateQueries({queryKey: ["task", taskId]});
-            console.log(data)
             toast.success(data.message);
             reset();
             navigate(location.pathname, {replace: true});
