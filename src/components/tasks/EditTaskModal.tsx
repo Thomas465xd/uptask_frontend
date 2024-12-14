@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Task, TaskFormData } from '@/types/index';
 import { useForm } from 'react-hook-form';
 import TaskForm from './TaskForm';
-import { useQueryClient, useMutation, dataTagErrorSymbol } from '@tanstack/react-query';
+import { useQueryClient, useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { updateTask } from '@/api/TaskAPI';
 
