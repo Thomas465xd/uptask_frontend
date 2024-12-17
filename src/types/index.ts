@@ -42,9 +42,28 @@ export const taskSchemaV2 = z.object({
     updatedAt: z.string()
 })
 
+/** Auth & Users */
+const authSchema = z.object({
+    name: z.string(),
+    email: z.string().email(), 
+    password: z.string(),
+    confirmPassword: z.string(),
+})
+
+// Project Types
+
 export type Project = z.infer<typeof projectSchema>;
 export type ProjectFormData = Pick<Project, "projectName" | "projectDescription" | "clientName">;
+
+// Task Types
+
 export type Task = z.infer<typeof taskSchema>;
 export type TaskV2 = z.infer<typeof taskSchemaV2>;
 export type TaskFormData = Pick<Task, "taskName" | "taskDescription">;
 export type TaskStatus = z.infer<typeof taskStatusSchema>;
+
+// Auth & Users Types
+
+export type Auth = z.infer<typeof authSchema>;
+export type UserLoginForm = Pick<Auth, "email" | "password">
+export type UserRegistrationForm = Pick<Auth, "name" | "email" | "password" | "confirmPassword">
