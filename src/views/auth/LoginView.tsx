@@ -30,6 +30,11 @@ const handleLogin = (formData: UserLoginForm) => {
 
 return (
     <>
+        <h1 className="text-5xl font-black text-white">Login</h1>
+        <p className="text-2xl font-light text-white mt-5 mb-5">
+            Start Planning your next Project {''}
+            <span className=" text-fuchsia-500 font-bold">Today  </span>
+        </p>
         <form
             onSubmit={handleSubmit(handleLogin)}
             className="space-y-8 p-10 bg-white rounded"
@@ -89,6 +94,13 @@ return (
                 className="text-center text-gray-300 hover:text-gray-500 transition-colors"
             >
                 Don't have an account yet? <span className="font-bold">Sign Up</span>
+            </Link>
+
+            <Link
+                to={"/auth/reset-password"}
+                className="text-center text-gray-300 hover:text-gray-500 transition-colors"
+            >
+                Forgot your password? <span className="font-bold">Recover it</span>
             </Link>
         </nav>
     </>
