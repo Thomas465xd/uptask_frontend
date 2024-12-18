@@ -11,7 +11,15 @@ import { isAxiosError } from "axios";
 
 // get all projects
 export async function getProjects() {
+    //const token = localStorage.getItem("UPTASK_AUTH_TOKEN");
     try {
+        /*
+        const { data } = await api.get("/projects", {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        });
+        */
         const { data } = await api.get("/projects");
         const response = dashboardProjectSchema.safeParse(data);
 

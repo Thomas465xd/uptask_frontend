@@ -36,6 +36,15 @@ export default function ProjectDetailsView() {
                     Add Task
                 </button>
 
+                <button
+                    type="button"
+                    className="bg-indigo-600 hover:bg-indigo-700 cursor-pointer transition-colors px-10 py-2 text-xl text-white rounded-md font-bold"
+                    onClick={() => navigate("/")}
+                >
+                    Go Back to Projects
+                </button>
+
+                {/** 
                 <button 
                     type="button" 
                     className="bg-yellow-500 hover:bg-yellow-700 cursor-pointer transition-colors px-10 py-2 text-xl text-white rounded-md font-bold"   
@@ -51,14 +60,7 @@ export default function ProjectDetailsView() {
                 >
                     Delete Project
                 </button>
-
-                <button
-                    type="button"
-                    className="bg-indigo-600 hover:bg-indigo-700 cursor-pointer transition-colors px-10 py-2 text-xl text-white rounded-md font-bold"
-                    onClick={() => navigate("/")}
-                >
-                    Go Back to Projects
-                </button>
+                */}
             </nav>
 
             <TaskList

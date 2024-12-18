@@ -51,6 +51,12 @@ const authSchema = z.object({
     token: z.string(),
 })
 
+export const userSchema = z.object({
+    _id: z.string(),
+    email: z.string().email(),
+    name: z.string(),
+})
+
 // Project Types
 
 export type Project = z.infer<typeof projectSchema>;
@@ -66,9 +72,11 @@ export type TaskStatus = z.infer<typeof taskStatusSchema>;
 // Auth & Users Types
 
 export type Auth = z.infer<typeof authSchema>;
-export type UserLoginForm = Pick<Auth, "email" | "password">
-export type UserRegistrationForm = Pick<Auth, "name" | "email" | "password" | "confirmPassword">
 export type ConfirmToken = Pick<Auth, "token">
 export type RequestConfirmationCodeForm = Pick<Auth, "email">
 export type ForgotPasswordForm = Pick<Auth, "email">
 export type NewPasswordForm = Pick<Auth, "password" | "confirmPassword">
+
+export type UserLoginForm = Pick<Auth, "email" | "password">
+export type UserRegistrationForm = Pick<Auth, "name" | "email" | "password" | "confirmPassword">
+export type User = z.infer<typeof userSchema>;

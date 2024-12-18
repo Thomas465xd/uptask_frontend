@@ -1,6 +1,6 @@
 import api from "@/lib/axios";
 import { isAxiosError } from "axios";
-import { ConfirmToken, ForgotPasswordForm, NewPasswordForm, RequestConfirmationCodeForm, UserLoginForm, UserRegistrationForm } from "../types";
+import { ConfirmToken, ForgotPasswordForm, NewPasswordForm, RequestConfirmationCodeForm, User, UserLoginForm, UserRegistrationForm, userSchema } from "../types";
 
 
 export async function createAccount(formData: UserRegistrationForm) {
@@ -33,6 +33,7 @@ export async function login(formData: UserLoginForm) {
     try {
         const url = `/auth/login`;
         const { data } = await api.post(url, formData);
+        localStorage.setItem("UPTASK_AUTH_TOKEN", data.token);
 
         return data ;
     } catch (error) {
@@ -85,6 +86,19 @@ export async function resetPasswordWithToken({formData, token}: {formData: NewPa
     try {
         const url = `/auth/reset-password/${token}`;
         const { data } = await api.post(url, formData );
+
+        return data;
+    } catch (error) {
+        if(isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.message);
+        }
+    }
+}
+
+export async function getUser() {
+    try {
+        const url = `/auth/user`;
+        const { data } = await api.get<User>(url);;
 
         return data;
     } catch (error) {
