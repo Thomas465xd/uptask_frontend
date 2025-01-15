@@ -1,11 +1,26 @@
 import { z } from "zod";
 
 /** Projects */
+export const userSchema = z.object({
+    email: z.string().email(),
+    name: z.string(),
+    _id: z.string(),
+})
+
+export const userSchemaV2 = z.object({
+    user: z.object({
+        _id: z.string(),
+        name: z.string(),
+        email: z.string(),
+    }),
+});
+
 export const projectSchema = z.object({
     _id: z.string(),
     projectName: z.string(),
     projectDescription: z.string(),
     clientName: z.string(),
+    manager: z.string(userSchema.pick({_id: true})),
 })
 
 export const dashboardProjectSchema = z.array(
@@ -13,7 +28,8 @@ export const dashboardProjectSchema = z.array(
         _id: true,
         projectName: true,
         projectDescription: true,
-        clientName: true
+        clientName: true, 
+        manager: true
     })
 )
 
@@ -49,12 +65,6 @@ const authSchema = z.object({
     password: z.string(),
     confirmPassword: z.string(),
     token: z.string(),
-})
-
-export const userSchema = z.object({
-    _id: z.string(),
-    email: z.string().email(),
-    name: z.string(),
 })
 
 /** Team */

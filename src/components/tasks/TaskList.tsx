@@ -4,6 +4,7 @@ import { statusTranslations } from "@/locales/en";
 
 type TaskListProps = {
     tasks: Task[];
+    canEdit: boolean;
 };
 
 type GroupedTasks = {
@@ -40,7 +41,7 @@ const dbToGroupStatus: Record<string, keyof GroupedTasks> = {
 
 const taskStatusOrder = ["PENDING", "ON_HOLD", "IN_PROGRESS", "UNDER_REVIEW", "COMPLETED"];
 
-export default function TaskList({ tasks }: TaskListProps) {
+export default function TaskList({ tasks, canEdit }: TaskListProps) {
     const groupedTasks = tasks.reduce<GroupedTasks>(
         (acc, task) => {
             const groupKey = dbToGroupStatus[task.status] || "PENDING"; // Map DB status to frontend key
@@ -72,7 +73,7 @@ export default function TaskList({ tasks }: TaskListProps) {
                                 <li className="text-gray-500 text-center pt-3">No tasks found</li>
                             ) : (
                                 groupedTasks[status].map((task) => (
-                                    <TaskCard key={task._id} task={task} />
+                                    <TaskCard canEdit={canEdit} key={task._id} task={task} />
                                 ))
                             )}
                         </ul>

@@ -5,9 +5,13 @@ export const useAuth = () => {
     const { data, isError, isLoading } = useQuery({
         queryKey: ["user"],
         queryFn: getUser,
-        retry: 1, 
-        refetchOnWindowFocus: false
-    })
+        retry: 1,
+        refetchOnWindowFocus: false,
+    });
 
-    return { data, isError, isLoading }
-}
+    if (data === undefined) {
+        console.warn("Data is undefined. Query might still be loading.");
+    }
+
+    return { data, isError, isLoading };
+};

@@ -87,20 +87,20 @@ export default function TaskModalDetails() {
                             >
                                 <Dialog.Panel className="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all p-16">
                                     <p className='text-sm text-slate-400'>Added in: <span>{formatDate(data.createdAt)}</span> </p>
-                                    <p className='text-sm text-slate-400'>Last Update: <span>{formatDate(data.updatedAt)}</span> </p>
+                                    <p className='text-sm text-slate-400 border-b'>Last Update: <span>{formatDate(data.updatedAt)}</span> </p>
                                     <Dialog.Title
                                         as="h3"
                                         className="font-black text-4xl text-slate-600 my-5"
                                     >
                                         {data.taskName}
                                     </Dialog.Title>
-                                    <p className='text-lg text-slate-500 mb-2'>Description: {data.taskDescription}</p>
-                                    <div className='my-5 space-y-3'>
-                                        <label className='font-bold'>
+                                    <p className='text-lg text-slate-500 mb-2'><span className='text-slate-600 font-semibold'>Task Description:</span> {data.taskDescription}</p>
+                                    <div className='my-5 space-y-3 mt-10'>
+                                        <label className='font-bold text-fuchsia-600'>
                                             Current Status: 
 
                                             <select 
-                                                className='w-full p-3 bg-white border border-gray-300'
+                                                className='w-full p-3 bg-white border border-gray-300 text-black rounded border'
                                                 defaultValue={data.status}
                                                 onChange={handleChange}
                                             >

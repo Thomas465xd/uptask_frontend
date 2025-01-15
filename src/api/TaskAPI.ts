@@ -23,7 +23,7 @@ export async function getTaskById({projectId, taskId} : Pick<TaskAPIType, "proje
         }
     } catch (error) {
         if(isAxiosError(error) && error.response) {
-            throw new Error(error.response.data.message);
+            throw new Error(error.response.data.error);
         }
     }
 }
@@ -36,7 +36,7 @@ export async function createTask({formData, projectId} : Pick<TaskAPIType, "form
         return data
     } catch (error) {
         if(isAxiosError(error) && error.response) {
-            throw new Error(error.response.data.message);
+            throw new Error(error.response.data.error);
         }
     }
 }
@@ -49,7 +49,7 @@ export async function updateTask({projectId, taskId, formData} : Pick<TaskAPITyp
         return data
     } catch (error) {
         if(isAxiosError(error) && error.response) {
-            throw new Error(error.response.data.message);
+            throw new Error(error.response.data.error);
         }
     }
 }
@@ -62,7 +62,7 @@ export async function deleteTask({projectId, taskId} : Pick<TaskAPIType, "projec
         return data
     } catch (error) {
         if(isAxiosError(error) && error.response) {
-            throw new Error(error.response.data.message);
+            throw new Error(error.response.data.error);
         }
     }
 }
@@ -75,7 +75,7 @@ export async function updateTaskStatus({projectId, taskId, status} : Pick<TaskAP
         return data
     } catch (error) {
         if(isAxiosError(error) && error.response) {
-            throw new Error(error.response.data.message);
+            throw new Error(error.response.data.error);
         }
     }
 }

@@ -6,8 +6,13 @@ import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid'
 import { toast } from "react-toastify";
+import { useAuth } from "@/hooks/useAuth";
+import Loader from "@/components/Loader";
+import { isManager } from "@/utilities/policies";
 
 export default function DashboardView() {
+
+    const { data: user, isLoading: userIsLoading } = useAuth();
 
     const { data, isLoading, isError, error } = useQuery({
         queryKey: ["projects"],
@@ -29,15 +34,16 @@ export default function DashboardView() {
         }
     })
 
-    if(isLoading) {
+    //console.log(data) 
+    //console.log(user)
 
-    }
+    if(isLoading && userIsLoading) return <Loader />
 
     if(isError) {
 
     }
 
-    if(data) return (
+    if(data && user) return (
         <>
             <h1 className="text-5xl font-black">My Projects</h1>
             <p className="text-2xl font-light text-gray-500 mt-5">Manage and keep track of your projects</p>
@@ -54,6 +60,12 @@ export default function DashboardView() {
                             <li key={project._id} className="flex justify-between gap-x-6 px-5 py-10">
                                 <div className="flex min-w-0 gap-x-4">
                                     <div className="min-w-0 flex-auto space-y-2">
+                                        <div>
+                                            { isManager(project.manager, user._id) ?
+                                                <p className="font-bold text-xs uppercase bg-orange-50 text-orange-500 border-2 border-orange-500 rounded-lg inline-block py-1 px-5 mb-2">Manager</p> :
+                                                <p className="font-bold text-xs uppercase bg-indigo-50 text-indigo-500 border-2 border-indigo-500 rounded-lg inline-block py-1 px-5 mb-2">Colaborator</p>
+                                            }
+                                        </div>
                                         <Link to={`projects/${project._id}`}
                                             className="text-gray-600 cursor-pointer hover:underline text-3xl font-bold"
                                         >{project.projectName}</Link>
@@ -78,27 +90,32 @@ export default function DashboardView() {
                                             <Menu.Items
                                                 className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none"
                                             >
-                                                    <Menu.Item>
-                                                        <Link to={`/projects/${project._id}`}
-                                                            className='block px-3 py-1 text-sm leading-6 text-gray-900'>
-                                                        See Project
-                                                        </Link>
-                                                    </Menu.Item>
-                                                    <Menu.Item>
-                                                        <Link to={`/projects/${project._id}/edit`}
-                                                            className='block px-3 py-1 text-sm leading-6 text-gray-900'>
-                                                        Edit Project
-                                                        </Link>
-                                                    </Menu.Item>
-                                                    <Menu.Item>
-                                                        <button 
-                                                            type='button' 
-                                                            className='block px-3 py-1 text-sm leading-6 text-red-500'
-                                                            onClick={() => mutate(project._id) }
-                                                        >
-                                                            Delete Project
-                                                        </button>
-                                                    </Menu.Item>
+                                                <Menu.Item>
+                                                    <Link to={`/projects/${project._id}`}
+                                                        className='block px-3 py-1 text-sm leading-6 text-gray-900'>
+                                                    See Project
+                                                    </Link>
+                                                </Menu.Item>
+                                                {isManager(project.manager, user._id) && (
+                                                    <>
+                                                        <Menu.Item>
+                                                            <Link to={`/projects/${project._id}/edit`}
+                                                                className='block px-3 py-1 text-sm leading-6 text-gray-900'>
+                                                            Edit Project
+                                                            </Link>
+                                                        </Menu.Item>
+                                                        <Menu.Item>
+                                                            <button 
+                                                                type='button' 
+                                                                className='block px-3 py-1 text-sm leading-6 text-red-500'
+                                                                onClick={() => mutate(project._id) }
+                                                            >
+                                                                Delete Project
+                                                            </button>
+                                                        </Menu.Item>
+                                                    </>
+                                                ) }
+                                                    
                                             </Menu.Items>
                                         </Transition>
                                     </Menu>
