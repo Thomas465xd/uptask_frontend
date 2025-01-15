@@ -5,7 +5,7 @@ import EditTaskData from "@/components/tasks/EditTaskData"
 import TaskList from "@/components/tasks/TaskList"
 import TaskModalDetails from "@/components/tasks/TaskModalDetails"
 import { useQuery } from "@tanstack/react-query"
-import { Navigate, useNavigate, useParams } from "react-router-dom"
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom"
 
 export default function ProjectDetailsView() {
 
@@ -16,7 +16,7 @@ export default function ProjectDetailsView() {
 
     const { data, isLoading, isError } = useQuery({
         queryKey: ["editProject", projectId],
-        queryFn: () => getProjectById(projectId), 
+        queryFn: () => getProjectById(projectId),  
         retry: false
     })
 
@@ -30,15 +30,19 @@ export default function ProjectDetailsView() {
             <nav className="my-5 flex gap-3 pb-10 border-b border-b-slate-400">
                 <button 
                     type="button" 
-                    className="bg-fuchsia-500 hover:bg-fuchsia-700 cursor-pointer transition-colors px-10 py-2 text-xl text-white rounded-md font-bold"   
+                    className="bg-pink-400 hover:bg-pink-500 px-10 py-3 text-white rounded-lg font-bold mt-10 inline-block transition-colors"   
                     onClick={() => navigate(`?newTask=true`)}
                 >
                     Add Task
                 </button>
 
+                <Link to={"team"} className="bg-fuchsia-400 hover:bg-fuchsia-500 px-10 py-3 text-white rounded-lg font-bold mt-10 inline-block transition-colors">
+                    Team
+                </Link>
+
                 <button
                     type="button"
-                    className="bg-indigo-600 hover:bg-indigo-700 cursor-pointer transition-colors px-10 py-2 text-xl text-white rounded-md font-bold"
+                    className="bg-purple-400 hover:bg-purple-500 px-10 py-3 text-white rounded-lg font-bold mt-10 inline-block transition-colors"
                     onClick={() => navigate("/")}
                 >
                     Go Back to Projects

@@ -57,6 +57,14 @@ export const userSchema = z.object({
     name: z.string(),
 })
 
+/** Team */
+
+const teamMemberSchema = userSchema.pick({
+    name: true, 
+    email: true, 
+    _id: true
+})
+
 // Project Types
 
 export type Project = z.infer<typeof projectSchema>;
@@ -80,3 +88,9 @@ export type NewPasswordForm = Pick<Auth, "password" | "confirmPassword">
 export type UserLoginForm = Pick<Auth, "email" | "password">
 export type UserRegistrationForm = Pick<Auth, "name" | "email" | "password" | "confirmPassword">
 export type User = z.infer<typeof userSchema>;
+
+// Team Types
+
+export const teamMembersSchema = z.array(teamMemberSchema);
+export type TeamMember = z.infer<typeof teamMemberSchema>;
+export type TeamMemberFormData = Pick<TeamMember, "email">;
