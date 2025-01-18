@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import { formatDate } from '@/utilities/utilities';
 import { statusTranslations } from '@/locales/en';
 import { TaskStatus } from '@/types/index';
+import NotesPanel from '../notes/NotesPanel';
 
 
 export default function TaskModalDetails() {
@@ -28,6 +29,7 @@ export default function TaskModalDetails() {
         retry: false
     })
 
+    // Invalidate queries
     const queryClient = useQueryClient();
 
     const { mutate } = useMutation({
@@ -96,12 +98,35 @@ export default function TaskModalDetails() {
                                     </Dialog.Title>
                                     <p className='text-lg text-slate-500 mb-2'><span className='text-slate-600 font-semibold'>Task Description:</span> {data.taskDescription}</p>
 
-                                    {data.completedBy && (
-                                        <p className='text-lg text-slate-500 mb-2'>
-                                            Status Updated by: <span className="font-bold-text-slate-600">{data.completedBy.name} </span>
-                                        </p>
-                                    )}
-
+                                    {data.completedBy.length ? (
+                                        <div className="space-y-4">
+                                            <p className="font-bold text-2xl text-slate-600 my-5">
+                                                Update History
+                                            </p>
+                                        
+                                            <ul className="relative border-l-2 border-slate-300">
+                                                {data.completedBy.map((activityLog, index) => (
+                                                    <li key={activityLog._id} className="mb-6 ml-6">
+                                                        <div className="absolute -left-3 w-6 h-6 bg-slate-500 rounded-full border-4 border-white flex items-center justify-center">
+                                                            <span className="text-xs text-white">
+                                                                {index + 1}
+                                                            </span>
+                                                        </div>
+                                                        <div className="text-sm">
+                                                            <span className="font-bold text-slate-600">
+                                                                {activityLog.status}
+                                                            </span>{" "}
+                                                            <span className="text-slate-500">by:</span>{" "}
+                                                            <span className="text-slate-700">
+                                                                {activityLog.user.name}
+                                                            </span> 
+                                                        </div>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    ) : null}
+                                    
                                     <div className='my-5 space-y-3 mt-10'>
                                         <label className='font-bold text-fuchsia-600'>
                                             Current Status: 
@@ -117,6 +142,10 @@ export default function TaskModalDetails() {
                                             </select>
                                         </label>
                                     </div>
+
+                                    <NotesPanel 
+                                        notes={data.notes}
+                                    />
                                 </Dialog.Panel>
                             </Transition.Child>
                         </div>

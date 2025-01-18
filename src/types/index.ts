@@ -33,10 +33,20 @@ export const dashboardProjectSchema = z.array(
     })
 )
 
+/** Notes */
+
+const noteSchema = z.object({
+    _id: z.string(), 
+    content: z.string(), 
+    createdBy: userSchema.pick({_id: true, name: true, email: true}), 
+    task: z.string(),
+    createdAt: z.string()
+})
+
 /** Tasks */
+
 export const taskStatusSchema = z.enum(["PENDING", "ON_HOLD", "IN_PROGRESS", "UNDER_REVIEW", "COMPLETED"]);
 export const taskStatusSchemaV2 = z.enum(["Not Started", "On Hold", "In Progress", "Under Review", "Completed"]);
-
 
 export const taskSchema = z.object({
     _id: z.string(),
@@ -44,7 +54,14 @@ export const taskSchema = z.object({
     taskDescription: z.string(),
     project: z.string(),
     status: taskStatusSchema,
-    completedBy: userSchema.or(z.null()),
+    completedBy: z.array(z.object({
+        _id: z.string(),
+        user: userSchema.pick({_id: true, name: true, email: true}), 
+        status: taskStatusSchema
+    })),
+    notes: z.array(noteSchema.extend({
+        createdBy: userSchema
+    })),
     createdAt: z.string(),
     updatedAt: z.string()
 })
@@ -55,7 +72,14 @@ export const taskSchemaV2 = z.object({
     taskDescription: z.string(),
     project: z.string(),
     status: taskStatusSchemaV2,
-    completedBy: userSchema.or(z.null()),
+    completedBy: z.array(z.object({
+        _id: z.string(),
+        user: userSchema.pick({_id: true, name: true, email: true}), 
+        status: taskStatusSchemaV2
+    })),
+    notes: z.array(noteSchema.extend({
+        createdBy: userSchema
+    })),
     createdAt: z.string(),
     updatedAt: z.string()
 })
@@ -88,6 +112,11 @@ export type Task = z.infer<typeof taskSchema>;
 export type TaskV2 = z.infer<typeof taskSchemaV2>;
 export type TaskFormData = Pick<Task, "taskName" | "taskDescription">;
 export type TaskStatus = z.infer<typeof taskStatusSchema>;
+
+// Note Types
+
+export type Note = z.infer<typeof noteSchema>
+export type NoteFormData = Pick<Note, "content">
 
 // Auth & Users Types
 

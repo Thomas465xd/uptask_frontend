@@ -9,22 +9,32 @@ type TaskAPIType = {
     status: Task["status"]
 }
 
-export async function getTaskById({projectId, taskId} : Pick<TaskAPIType, "projectId" | "taskId">) {
+export async function getTaskById({ projectId, taskId }: Pick<TaskAPIType, "projectId" | "taskId">) {
+    if (!projectId || !taskId) {
+        console.error("❌ projectId o taskId es undefined:", { projectId, taskId });
+        throw new Error("Invalid projectId or taskId");
+    }
+
     try {
         const url = `/projects/${projectId}/tasks/${taskId}`;
+        //console.log("📡 Fetching:", url);  // <-- Imprime la URL para verificar
+
         const { data } = await api.get(url);
-        //console.log(data)
+        //console.log("✅ Fetched Data:", data);
+
         const response = taskSchemaV2.safeParse(data);
-
-        //console.log(response.data)
-
-        if(response.success) {
-            return response.data
+        if (response.success) {
+            return response.data;
+        } else {
+            console.error("❌ Validation failed:", response.error);
+            throw new Error("Invalid task data");
         }
     } catch (error) {
-        if(isAxiosError(error) && error.response) {
-            throw new Error(error.response.data.error);
+        console.error("❌ Error fetching task:", error);
+        if (isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.error || "API returned an error");
         }
+        throw new Error("Failed to fetch task");
     }
 }
 
