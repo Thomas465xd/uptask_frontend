@@ -9,9 +9,11 @@ export const useAuth = () => {
         refetchOnWindowFocus: false,
     });
 
+    /** 
     if (data === undefined) {
         console.warn("Data is undefined. Query might still be loading.");
     }
+    */
 
     return { data, isError, isLoading };
 };

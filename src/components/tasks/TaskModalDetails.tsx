@@ -92,15 +92,22 @@ export default function TaskModalDetails() {
                                         as="h3"
                                         className="font-black text-4xl text-slate-600 my-5"
                                     >
-                                        {data.taskName}
+                                        Task Name: {data.taskName}
                                     </Dialog.Title>
                                     <p className='text-lg text-slate-500 mb-2'><span className='text-slate-600 font-semibold'>Task Description:</span> {data.taskDescription}</p>
+
+                                    {data.completedBy && (
+                                        <p className='text-lg text-slate-500 mb-2'>
+                                            Status Updated by: <span className="font-bold-text-slate-600">{data.completedBy.name} </span>
+                                        </p>
+                                    )}
+
                                     <div className='my-5 space-y-3 mt-10'>
                                         <label className='font-bold text-fuchsia-600'>
                                             Current Status: 
 
                                             <select 
-                                                className='w-full p-3 bg-white border border-gray-300 text-black rounded border'
+                                                className='w-full p-3 bg-white border-gray-300 text-black rounded border'
                                                 defaultValue={data.status}
                                                 onChange={handleChange}
                                             >
