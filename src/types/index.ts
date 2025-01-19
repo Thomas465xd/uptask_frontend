@@ -88,6 +88,7 @@ export const taskSchemaV2 = z.object({
 const authSchema = z.object({
     name: z.string(),
     email: z.string().email(), 
+    current_password: z.string(),
     password: z.string(),
     confirmPassword: z.string(),
     token: z.string(),
@@ -125,10 +126,12 @@ export type ConfirmToken = Pick<Auth, "token">
 export type RequestConfirmationCodeForm = Pick<Auth, "email">
 export type ForgotPasswordForm = Pick<Auth, "email">
 export type NewPasswordForm = Pick<Auth, "password" | "confirmPassword">
+export type UpdateCurrentPasswordForm = Pick<Auth, "current_password" | "password" | "confirmPassword">
 
 export type UserLoginForm = Pick<Auth, "email" | "password">
 export type UserRegistrationForm = Pick<Auth, "name" | "email" | "password" | "confirmPassword">
 export type User = z.infer<typeof userSchema>;
+export type UserProfileForm = Pick<User, "name" | "email">
 
 // Team Types
 
