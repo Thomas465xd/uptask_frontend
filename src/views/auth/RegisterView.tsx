@@ -148,7 +148,7 @@ export default function RegisterView() {
                 </Link>
 
                 <Link
-                    to={"/auth/reset-password"}
+                    to={"/auth/forgot-password"}
                     className="text-center text-gray-300 hover:text-gray-500 transition-colors"
                 >
                     Forgot your password? <span className="font-bold">Recover it</span>
