@@ -1,6 +1,7 @@
 import { z } from "zod";
 
-/** Projects */
+// Types needed for declaration
+
 export const userSchema = z.object({
     email: z.string().email(),
     name: z.string(),
@@ -15,30 +16,6 @@ export const userSchemaV2 = z.object({
     }),
 });
 
-export const projectSchema = z.object({
-    _id: z.string(),
-    projectName: z.string(),
-    projectDescription: z.string(),
-    clientName: z.string(),
-    manager: z.string(userSchema.pick({_id: true})),
-})
-
-export const dashboardProjectSchema = z.array(
-    projectSchema.pick({
-        _id: true,
-        projectName: true,
-        projectDescription: true,
-        clientName: true, 
-        manager: true
-    })
-)
-
-export const editProjectSchema = projectSchema.pick({
-    projectName: true,
-    projectDescription: true,
-    clientName: true
-})
-
 /** Notes */
 
 const noteSchema = z.object({
@@ -48,6 +25,7 @@ const noteSchema = z.object({
     task: z.string(),
     createdAt: z.string()
 })
+
 
 /** Tasks */
 
@@ -72,6 +50,13 @@ export const taskSchema = z.object({
     updatedAt: z.string()
 })
 
+export const taskProjectSchema = taskSchema.pick({
+    _id: true, 
+    taskName: true, 
+    taskDescription: true, 
+    status: true,
+})
+
 export const taskSchemaV2 = z.object({
     _id: z.string(),
     taskName: z.string(),
@@ -88,6 +73,56 @@ export const taskSchemaV2 = z.object({
     })),
     createdAt: z.string(),
     updatedAt: z.string()
+})
+
+/* 
+export const taskProjectSchemaV2 = taskSchemaV2.pick({
+    _id: true, 
+    taskName: true, 
+    taskDescription: true, 
+    status: true,
+})
+
+*/
+
+export const taskProjectSchemaV2 = taskSchemaV2; // This will include all fields from taskSchemaV2
+
+/** Projects */
+
+export const projectSchema = z.object({
+    _id: z.string(),
+    projectName: z.string(),
+    projectDescription: z.string(),
+    clientName: z.string(),
+    manager: z.string(userSchema.pick({_id: true})),
+    tasks: z.array(taskProjectSchema), 
+    team: z.array(z.string(userSchema.pick({_id: true})))
+})
+
+export const projectSchemaV2 = z.object({
+    _id: z.string(),
+    projectName: z.string(),
+    projectDescription: z.string(),
+    clientName: z.string(),
+    manager: z.string(userSchema.pick({_id: true})),
+    tasks: z.array(taskProjectSchemaV2), 
+    team: z.array(z.string(userSchema.pick({_id: true})))
+})
+
+export const dashboardProjectSchema = z.array(
+    projectSchema.pick({
+        _id: true,
+        projectName: true,
+        projectDescription: true,
+        clientName: true, 
+        manager: true
+    })
+)
+
+export const editProjectSchema = projectSchema.pick({
+    projectName: true,
+    projectDescription: true,
+    clientName: true
 })
 
 /** Auth & Users */
@@ -119,6 +154,8 @@ export type Task = z.infer<typeof taskSchema>;
 export type TaskV2 = z.infer<typeof taskSchemaV2>;
 export type TaskFormData = Pick<Task, "taskName" | "taskDescription">;
 export type TaskStatus = z.infer<typeof taskStatusSchema>;
+export type TaskProject = z.infer<typeof taskProjectSchema>;
+export type TaskProjectV2 = z.infer<typeof taskProjectSchemaV2>;
 
 // Note Types
 

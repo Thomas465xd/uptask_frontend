@@ -25,6 +25,7 @@ export default function RegisterView() {
 
     const handleRequestCode = (formData: RequestConfirmationCodeForm) => {
         mutate(formData);
+        reset();
     }
 
     return (

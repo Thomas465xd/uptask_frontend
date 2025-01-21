@@ -6,7 +6,7 @@ import {
     useSensor,
     useSensors,
 } from "@dnd-kit/core";
-import { Task, TaskStatus } from "@/types/index";
+import { Project, Task, TaskStatus } from "@/types/index";
 import TaskCard from "./TaskCard";
 import { statusTranslations } from "@/locales/en";
 import DropTask from "./DropTask";
@@ -125,8 +125,8 @@ export default function TaskList({ tasks, canEdit }: TaskListProps) {
                 status
             });
 
-            queryClient.setQueryData(["editProject", projectId], (oldData: { tasks: Task[]}) => {
-                const updatedTasks = oldData.tasks.map((task: Task) => {
+            queryClient.setQueryData(["editProject", projectId], (oldData: Project) => {
+                const updatedTasks = oldData.tasks.map((task) => {
                     if(task._id === taskId) {
                         return {
                             ...task, 
