@@ -33,6 +33,12 @@ export const dashboardProjectSchema = z.array(
     })
 )
 
+export const editProjectSchema = projectSchema.pick({
+    projectName: true,
+    projectDescription: true,
+    clientName: true
+})
+
 /** Notes */
 
 const noteSchema = z.object({

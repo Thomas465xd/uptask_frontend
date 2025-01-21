@@ -7,6 +7,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useNavigate, useParams } from "react-router-dom"
 import { toast } from "react-toastify"
 import { Fragment } from "react/jsx-runtime"
+import { useDraggable } from "@dnd-kit/core"
 import Loader from "../Loader"
 
 type TaskCardProps = {
@@ -15,6 +16,10 @@ type TaskCardProps = {
 }
 
 export default function TaskCard({task, canEdit} : TaskCardProps) {
+
+    const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
+        id: task._id
+    })
 
     const { data: user, isLoading: userIsLoading } = useAuth();
     const navigate = useNavigate();
@@ -34,11 +39,27 @@ export default function TaskCard({task, canEdit} : TaskCardProps) {
         },
     })
 
+    const style = {
+        transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
+        transition: isDragging ? 'none' : 'transform 0.2s ease',
+        zIndex: isDragging ? 1000 : 1,
+        boxShadow: isDragging ? '0px 4px 12px rgba(0, 0, 0, 0.15)' : undefined,
+        position: isDragging ? 'relative' : undefined,
+    } as React.CSSProperties;
+
     if(userIsLoading) return <Loader/>
     
     if(user) return (
-        <li className="p-5 bg-white border-slate-300 flex justify-between gap-3">
-            <div className="min-w-0 flex flex-col gap-y-4">
+        <li 
+            className="p-5 bg-white border-slate-300 flex justify-between gap-3"
+            {...listeners}
+            {...attributes}
+            ref={setNodeRef}
+            style={style}
+        >
+            <div 
+                className="min-w-0 flex flex-col gap-y-4"
+            >
                 <button 
                     type="button"
                     className="text-xl font-bold text-slate-600 text-left hover:text-slate-700 hover:underline transition-colors"
