@@ -13,7 +13,7 @@ export async function updateProfile(formData: UserProfileForm) {
     } catch (error) {
         if (isAxiosError(error) && error.response) {
             //console.log(error)
-            throw new Error(error.response.data.error);
+            throw new Error(error.response.data.message);
         }
     }
 }
@@ -28,7 +28,7 @@ export async function changePassword(formData: UpdateCurrentPasswordForm) {
     } catch (error) {
         if (isAxiosError(error) && error.response) {
             //console.log(error)
-            throw new Error(error.response.data.error);
+            throw new Error(error.response.data.message);
         }
     }
 }
