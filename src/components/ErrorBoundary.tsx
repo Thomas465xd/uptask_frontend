@@ -28,6 +28,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     if (this.state.hasError && prevState.hasError) {
       // Reset error boundary when the user navigates
       this.setState({ hasError: false, errorKey: prevState.errorKey + 1 });
+      console.log(prevProps)
     }
   }
 
