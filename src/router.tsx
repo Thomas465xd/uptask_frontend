@@ -20,39 +20,42 @@ const NotFound = lazy(() => import('./views/404/NotFound'))
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Loader from './components/Loader'
+import ErrorBoundary from './components/ErrorBoundary'
 
 export default function Router() {
     return (
         <BrowserRouter>
-            <Suspense fallback={<Loader />}>
-                <Routes>
-                    <Route element={<AppLayout />} > 
-                        <Route path="/" element={<DashboardView/>} index/>
-                        <Route path="/projects/create" element={<CreateProjectView/>} />
-                        <Route path="/projects/:projectId" element={<ProjectDetailsView/>} />
-                        <Route path="/projects/:projectId/edit" element={<EditProjectView/>} />
-                        <Route path="/projects/:projectId/team" element={<ProjectTeamView/>}/>
+            <ErrorBoundary>
+                <Suspense fallback={<Loader />}>
+                    <Routes>
+                        <Route element={<AppLayout />} > 
+                            <Route path="/" element={<DashboardView/>} index/>
+                            <Route path="/projects/create" element={<CreateProjectView/>} />
+                            <Route path="/projects/:projectId" element={<ProjectDetailsView/>} />
+                            <Route path="/projects/:projectId/edit" element={<EditProjectView/>} />
+                            <Route path="/projects/:projectId/team" element={<ProjectTeamView/>}/>
 
-                        <Route element={<ProfileLayout />}>
-                            <Route path="/profile" element={<ProfileView/>} />
-                            <Route path="/profile/password" element={<ChangePasswordView/>} />
+                            <Route element={<ProfileLayout />}>
+                                <Route path="/profile" element={<ProfileView/>} />
+                                <Route path="/profile/password" element={<ChangePasswordView/>} />
+                            </Route>
                         </Route>
-                    </Route>
 
-                    <Route element={<AuthLayout />} >
-                        <Route path="/auth/login" element={<LoginView />} />
-                        <Route path="/auth/register" element={<RegisterView />} />
-                        <Route path="/auth/confirm-account" element={<ConfirmAccountView />} />
-                        <Route path="/auth/new-code" element={<RequestNewCodeView />} />
-                        <Route path="/auth/forgot-password" element={<ForgotPasswordView />} />
-                        <Route path="/auth/reset-password" element={<NewPasswordView />} />
-                    </Route>
+                        <Route element={<AuthLayout />} >
+                            <Route path="/auth/login" element={<LoginView />} />
+                            <Route path="/auth/register" element={<RegisterView />} />
+                            <Route path="/auth/confirm-account" element={<ConfirmAccountView />} />
+                            <Route path="/auth/new-code" element={<RequestNewCodeView />} />
+                            <Route path="/auth/forgot-password" element={<ForgotPasswordView />} />
+                            <Route path="/auth/reset-password" element={<NewPasswordView />} />
+                        </Route>
 
-                    <Route element={<AuthLayout />} >
-                        <Route path='/404' element={<NotFound />} />
-                    </Route>
-                </Routes>
-            </Suspense>
+                        <Route element={<AuthLayout />} >
+                            <Route path='/404' element={<NotFound />} />
+                        </Route>
+                    </Routes>
+                </Suspense>
+            </ErrorBoundary>
 
         </BrowserRouter>
     )
