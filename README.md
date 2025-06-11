@@ -39,7 +39,7 @@ UpTask is a powerful project and task management web app built using the MERN st
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/yourusername/uptask-frontend.git
+    git clone https://github.com/Thomas465xd/uptask_frontend.git
     cd uptask-frontend
     ```
 
@@ -55,7 +55,7 @@ UpTask is a powerful project and task management web app built using the MERN st
 
 4. Run the app:
     ```bash
-    npm start
+    npm run dev
     ```
 
 ### Backend Setup
@@ -63,7 +63,7 @@ UpTask is a powerful project and task management web app built using the MERN st
 1. Clone the backend repository (if not already set up):
     ```bash
     git clone https://github.com/Thomas465xd/uptask_backend.git
-    cd uptask-backend
+    cd uptask_backend
     ```
 
 2. Install backend dependencies:
@@ -75,7 +75,7 @@ UpTask is a powerful project and task management web app built using the MERN st
 
 4. Start the backend server:
     ```bash
-    npm start
+    npm run dev
     ```
 
 ## Usage
